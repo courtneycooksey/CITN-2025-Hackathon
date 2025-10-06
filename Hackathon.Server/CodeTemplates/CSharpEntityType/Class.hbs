@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Hackathon.Server.Service;
+using Hackathon.Server.Models;
+
+namespace Hackathon.Server.Controllers {
+  [Route("api/[controller]")]
+  [ApiController]
+{{#if class-annotation}}
+{{{class-annotation}}}
+{{/if}}
+  public class {{class}}Controller : ControllerBase {
+    private {{class}}Service svc = new {{class}}Service();
+
+    //GET api/{{class}}
+    [HttpGet]
+    [Route("/api/{{class}}")]
+    public ActionResult<List<{{class}}>> GetAll(){
+      return svc.GetAll().ToList();
+    }
+    
+    //GET api/{{class}}/5
+    [HttpGet("{id}")]
+    public ActionResult<{{class}}> Get(int id){
+      var item = svc.Get(id);
+      if(item == null){
+        return NotFound();
+      }
+      return item;
+    }
+  }
+}
